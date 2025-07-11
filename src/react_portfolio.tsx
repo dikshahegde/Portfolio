@@ -1,6 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Palette, Database, Globe, Cpu, Brain, BarChart2 } from 'lucide-react';
+import searchDoctor from './assets/search_doctor.jpeg';
+import bci from './assets/bci.jpeg';
+import dashboard from './assets/dashboard.jpeg';
+import keyboard from './assets/keyboard.jpeg';
 
+[{
+	"resource": "/c:/Users/HP/Downloads/portfolio/my_portfolio/src/react_portfolio.tsx",
+	"owner": "typescript",
+	"code": "1232",
+	"severity": 8,
+	"message": "An import declaration can only be used at the top level of a namespace or module.",
+	"source": "ts",
+	"startLineNumber": 58,
+	"startColumn": 1,
+	"endLineNumber": 58,
+	"endColumn": 7
+},{
+	"resource": "/c:/Users/HP/Downloads/portfolio/my_portfolio/src/react_portfolio.tsx",
+	"owner": "typescript",
+	"code": "2307",
+	"severity": 8,
+	"message": "Cannot find module '../assets/search-doctor.jpeg' or its corresponding type declarations.",
+	"source": "ts",
+	"startLineNumber": 58,
+	"startColumn": 26,
+	"endLineNumber": 58,
+	"endColumn": 56
+}]
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,32 +82,44 @@ const Portfolio = () => {
     
   ];
 
+const experience = [
+  {
+    role: "AI Developer Intern",
+    company: "Craftech 360",
+    duration: "March 2025 – april 2025",
+    description: "Created and customized nodes using ComfyUI, streamlining AI workflow automation.Built AI-powered image generation pipelines and explored language training integration for dynamic outputs. Utilized Supabase as a backend service and learned scalable cloud deployment with RunPod.Employed Docker to containerize applications for seamless deployment.",
+    technologies: ["Python", "Machine Learning", "Deep Learning", "AI Tools", "Pipeline Workflow", "Docker", "Runpod"]
+  }
+];
+
+  
+
   const projects = [
     {
       title: 'SEARCH DOCTOR',
       description: 'A full-stack solution to find doctors in a city along with the directions with React.js, Java, and PostgreSQL.',
-      image: 'Project Image',
+      image: searchDoctor,
       technologies: ['React.js', 'Java', 'PostgreSQL'],
       github: 'https://github.com/dikshahegde/Search_doctor'
     },
     {
       title: 'AI FRAMEWORK FOR VEP-BASED BCI',
       description: 'A machine learning model to analyze EEG signals for object recognition with 82% accuracy using AI,Machine Learning,Data Science and Deep Learning.',
-      image: 'Project Image',
+      image: bci,
       technologies: ['Machine learning', 'Data Science', 'Data Visualisation', 'Artificial Intelligence', 'Deep learning'],
       github: 'https://github.com/dikshahegde/EEG_Analysis'
     },
     {
       title: 'Retail KPI Dashboard',
       description: 'A responsive representation of retail analysis with location of many countries.',
-      image: 'Project Image',
+      image: dashboard,
       technologies: ['Data Analysis', 'PowerBI', 'Tableau', 'Data Processing'],
       github: 'https://github.com/dikshahegde/retail-kpi-dashboard'
     },
     {
       title: 'COMPUTER VISION-BASED VIRTUAL KEYBOARD',
       description: 'A real-time virtual keyboard using OpenCV and MediaPipe for hand tracking in varying lighting conditions.',
-      image: 'Project Image',
+      image: keyboard,
       technologies: ['Computer Vision', 'MediaPipe'],
       github: 'https://github.com/dikshahegde/virtual_keyboard'
     }
@@ -163,7 +202,13 @@ const Portfolio = () => {
             {projects.map((project, index) => (
               <div key={index} className="project-card">
                 <div className="project-image">
-                  <div className="image-placeholder">{project.image}</div>
+                  <div className="image-placeholder"
+                    style={{
+                      backgroundImage: `url(${project.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}>
+                  </div>
                 </div>
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
@@ -185,6 +230,28 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
+
+      <section id="experience" className={`experience-section ${visibleSections.has('experience') ? 'visible' : ''}`}>
+  <div className="container">
+    <h2 className="section-title">Experience</h2>
+    <div className="experience-grid">
+      {experience.map((item, index) => (
+        <div key={index} className="experience-card">
+          <h2 className="experience-role">{item.role}</h2>
+          <strong><p className="experience-company">{item.company}</p></strong>
+          <p className="experience-duration">{item.duration}</p>
+          <p className="experience-description">{item.description}</p>
+          <div className="experience-tech">
+            {item.technologies.map((tech, idx) => (
+              <span key={idx} className="tech-tag">{tech}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Contact Section */}
       <section id="contact" className={`contact-section ${visibleSections.has('contact') ? 'visible' : ''}`}>
@@ -277,6 +344,8 @@ const Portfolio = () => {
         }
 
         .logo {
+
+        
           font-size: 1.5rem;
           font-weight: 700;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -559,7 +628,7 @@ const Portfolio = () => {
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
           gap: 2rem;
         }
 
@@ -859,6 +928,67 @@ const Portfolio = () => {
           .nav-container {
             padding: 0 1rem;
           }
+          .experience-section {
+  padding: 6rem 0;
+  background: #f4f6fc;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.experience-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.experience-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-5px);
+}
+
+.experience-role {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.experience-company {
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.experience-duration {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.experience-description {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.experience-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
         }
       `}</style>
     </div>
